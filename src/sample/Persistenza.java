@@ -3,36 +3,27 @@ package sample;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class Persistenza
 {
 
-    public Savable generaOggetto(String file) throws LoadConfNotFoundException
+    public Savable generaOggetto(String className) throws ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-        if (file.equals("sample.Automobile.txt"))
-            return new Automobile();
-        else if(file.equals("sample.Persona.txt"))
-            return new Persona();
-        else
-            throw new LoadConfNotFoundException();
+      return (Savable) Class.forName(className).newInstance();
     }
 
-
-
-
     // txt a programma
-    public ArrayList<Savable> load(String file) throws IOException, LoadConfNotFoundException
+    public ArrayList<Savable> load(String classe) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-        FileReader fileReader = new FileReader(file);
+        FileReader fileReader = new FileReader(classe+".txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         ArrayList<Savable> savables = new ArrayList<>();
-        Savable savable = new Persona();
+        Savable savable;
 
         while(bufferedReader.ready())
         {
             String loaded = bufferedReader.readLine();
-            savable = generaOggetto(file);
+            savable = generaOggetto(classe);
             savable.load(loaded);
             savables.add(savable);
         }

@@ -15,24 +15,24 @@ public class Main{
 
         try
         {
-            persone = persistenza.load("sample.Persona.txt");
-            automobili = persistenza.load("sample.Automobile.txt");
+            persone = persistenza.load("sample.Persona");
+            automobili = persistenza.load("sample.Automobile");
         }
         catch (IOException e)
         {
             System.out.println("File di caricamento non trovato");
         }
-        catch (LoadConfNotFoundException e)
+        catch (Exception e)
         {
             System.out.println("Classe sconosciuta");
         }
 
-    /*    Persona persona;
+        Persona persona;
         for (Savable savable : persone)
         {
             persona = (Persona)savable;
             System.out.println(persona.getNome() + persona.getCognome());
-        }*/
+        }
 
         try
         {
