@@ -3,6 +3,7 @@ package sample;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Main{
 
@@ -12,11 +13,26 @@ public class Main{
         Persistenza persistenza = new Persistenza();
         ArrayList<Savable> persone = new ArrayList<>();
         ArrayList<Savable> automobili = new ArrayList<>();
-
-        try
+        
+      /*															//Test salva File
+        Persona person1 = new Persona("Franco","Cataldo");
+        Persona person2 = new Persona("Francesco","Rollo");
+        Persona person3 = new Persona("Ludovica","Lezzi");
+        Automobile auto1 = new Automobile("Ferrari","Enzo");
+        Automobile auto2 = new Automobile("Maserati","Mirage");
+        Automobile auto3 = new Automobile("Ford","Kuga");
+        persone.add(person1);
+        persone.add(person2);
+        persone.add(person3);
+        automobili.add(auto1);
+        automobili.add(auto2);
+        automobili.add(auto3);
+     */   
+   
+       try															
         {
-            persone = persistenza.load("sample.Persona");
-            automobili = persistenza.load("sample.Automobile");
+    	 
+    	   persistenza.autoLoad();
         }
         catch (IOException e)
         {
@@ -26,14 +42,8 @@ public class Main{
         {
             System.out.println("Classe sconosciuta");
         }
-
-        Persona persona;
-        for (Savable savable : persone)
-        {
-            persona = (Persona)savable;
-            System.out.println(persona.getNome() + persona.getCognome());
-        }
-
+ 
+      
         try
         {
             persistenza.save(persone);
